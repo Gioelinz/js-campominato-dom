@@ -34,8 +34,10 @@ header{
 
 .clicked{
     background-color: cyan;
+    cursor: not-allowed;
 }
 
 .bomb{
     background-color: red;
+    cursor: not-allowed;
 }
