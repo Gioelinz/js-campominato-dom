@@ -1,0 +1,52 @@
+*{
+    font-family: 'Abril Fatface', cursive;
+}
+
+header{
+    height: 100px;
+    background-color: lightgreen;
+    filter: drop-shadow(0 0 0.75rem rgb(71, 139, 7));
+}
+
+.grid-section{
+    background-color: rgb(93, 58, 50);
+    height: calc(100vh - 100px);
+}
+
+#grid{
+    height: 700px;
+    width: 700px;
+    border: 2px solid rgb(90, 34, 34);
+    flex-wrap: wrap;
+    color: white;
+    display: none;
+}
+
+.cell{
+    border: 1px solid white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.cell.easy{
+    height: calc(100% / 7);
+    width: calc(100% / 7);
+}
+
+.cell.medium{
+    height: calc(100% / 9);
+    width: calc(100% / 9);
+}
+
+.cell.hard{
+    height: calc(100% / 10);
+    width: calc(100% / 10);
+}
+
+
+.clicked{
+    background-color: cyan;
+}
