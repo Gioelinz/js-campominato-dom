@@ -20,17 +20,47 @@ function getRandomNumber(min, max) {
 
     return rndNum;
 }
+
 //! big function
 const playGame = () => {
 
     buttonElement.innerText = "Ricomincia"
-    gridElement.innerHTML = '';
+
+    // reset
     const gridElement = document.getElementById("grid");
+    gridElement.innerHTML = '';
+
+    gridElement.style.display = 'flex';
+
     //! preparazione bombe e attemps
 
 
     let attemps = 0;
     const TOTAL_BOMBS = 16;
+
+
+
+    // ! difficoltà
+
+    const difficultyElement = document.getElementById("difficulty").value;
+
+    let totalCells;
+    let cellsRow;
+
+    switch (difficultyElement) {
+        case 'normal':
+            totalCells = 81;
+        case 'hard':
+            totalCells = 49;
+        default:
+            //Easy
+            totalCells = 100;
+    }
+
+    cellsRow = Math.sqrt(totalCells);
+    const MAX_ATTEMPS = totalCells - TOTAL_BOMBS;
+
+    // ! tutte le funzioni qui
 
     function generateBombs(totalBombs, totalNumbers) {
         const bombs = []
@@ -41,18 +71,6 @@ const playGame = () => {
         return bombs;
     }
 
-    /* console.log(generateBombs(TOTAL_BOMBS, difficulty(10, 10))) */
-
-
-    // ! funzione per difficoltà
-
-    function difficulty(cells, columns) {
-        const cell = cells;
-        const column = columns;
-        const totalCells = cell * column;
-
-        return totalCells;
-    }
 
 
     // ! creazione celle
@@ -132,18 +150,18 @@ const playGame = () => {
 
 // ! inizializzo variabili che mi servono per il DOM
 
-const difficultyElement = document.getElementById("difficulty");
+
 const buttonElement = document.getElementById("button");
 
 
-
+buttonElement.addEventListener('click', playGame)
 
 buttonElement.addEventListener('click', () => {
     buttonElement.innerText = "Ricomincia"
     gridElement.innerHTML = '';
     const selectDifficulty = difficultyElement.value;
 
-    gridElement.style.display = 'flex';
+
     if (selectDifficulty == "easy") {
         easy()
     } else if (selectDifficulty == "medium") {
