@@ -22,7 +22,7 @@ function getRandomNumber(min, max) {
 }
 
 //! big function
-const playGame = () => {
+function playGame() {
 
     buttonElement.innerText = "Ricomincia"
 
@@ -57,6 +57,7 @@ const playGame = () => {
         default:
             //Easy
             totalCells = 100;
+            break;
     }
 
     cellsRow = Math.sqrt(totalCells);
@@ -64,41 +65,34 @@ const playGame = () => {
 
     // ! tutte le funzioni qui
 
-    function generateBombs(totalBombs, totalNumbers) {
-        const bombs = []
+    const generateBombs = (totalBombs, totalNumbers) => {
+        const bombs = [];
         while (bombs.length < totalBombs) {
             const rndNum = getRandomNumber(1, totalNumbers);
-            if (!bombs.includes(rndNum)) bombs.push(rndNum);
+            if (!bombs.includes(rndNum)) {
+                bombs.push(rndNum);
+            }
         }
         return bombs;
     }
 
     // generazione cella
 
-    function generateCell(number, cellsRow) {
+    const generateCell = (number, cellsRow) => {
         const cell = document.createElement("div");
         cell.className = 'cell';
         cell.innerText = number;
         const cellSize = `calc(100% / ${cellsRow})`;
         cell.style.width = cellSize;
-        cell.style.height = cellsize;
+        cell.style.height = cellSize;
 
         return cell;
     }
 
 
-    //GRIGLIA
 
-    function generateGrid(cellsNumber, cellsRow, bombs) {
-        for (let i = 1; 1 < cellsNumber; i++) {
-            const cell = generateCell(i, cellsRow);
-            cell.addEventListener('click', (e) => onCellClick(e.target, bombs, i));
-
-            gridElement.appendChild(cell);
-        }
-    }
-
-    function gameOver(bombs, points, hasLost) {
+    // gameover!
+    const gameOver = (bombs, points, hasLost) => {
         showBombs(bombs);
 
         const messageElement = document.createElement('h3');
@@ -111,37 +105,55 @@ const playGame = () => {
         gridElement.appendChild(messageElement)
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // al click della cella
 
-    function onCellClick(clickedCell, bombs, number) {
-        clickedCell.removeEventListener('click', onCellClick(e.target));
+    const onCellClick = (clickedCell, bombs, number) => {
+        clickedCell.removeEventListener('click', onCellClick);
 
         if (bombs.includes(number)) {
-            //!gameover
+            gameOver(bombs, attemps, true);
         } else {
             clickedCell.classList.add('clicked');
             attemps++;
         }
 
         if (attemps === MAX_ATTEMPS) {
-            //!gameover win
+            gameOver(bombs, attemps, false);
         }
     }
 
+    // mostra bombe
 
+
+    const showBombs = (bombs) => {
+        const cells = document.querySelectorAll('.cell');
+        for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            const cellNumber = parseInt(cell.innerText);
+            cell.removeEventListener('click', onCellClick);
+            if (bombs.includes(cellNumber)) cell.classList.add('bomb');
+        }
+    }
+
+    //GRIGLIA
+
+    const generateGrid = (cellsNumber, cellsRow, bombs) => {
+        for (let i = 1; i <= cellsNumber; i++) {
+            const cell = generateCell(i, cellsRow);
+            cell.addEventListener('click', (e) => onCellClick(e.target, bombs, i));
+
+            gridElement.appendChild(cell);
+        }
+    }
+
+    //!----------------------------
+    //! exe!
+    //!_____________________________
+
+    const bombs = generateBombs(TOTAL_BOMBS, totalCells)
+    console.table(bombs)
+
+    generateGrid(totalCells, cellsRow, bombs);
 }
 
 // ! inizializzo variabili che mi servono per il DOM
@@ -150,21 +162,7 @@ const playGame = () => {
 const buttonElement = document.getElementById("button");
 
 
-buttonElement.addEventListener('click', playGame)
-
-// buttonElement.addEventListener('click', () => {
-//     buttonElement.innerText = "Ricomincia"
-//     gridElement.innerHTML = '';
-//     const selectDifficulty = difficultyElement.value;
+buttonElement.addEventListener('click', () => playGame());
 
 
-//     if (selectDifficulty == "easy") {
-//         easy()
-//     } else if (selectDifficulty == "medium") {
-//         medium()
-//     } else {
-//         hard()
-//     }
-
-// })
 
