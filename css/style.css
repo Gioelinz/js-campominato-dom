@@ -32,8 +32,8 @@ header{
 }
 
 .cell.easy{
-    height: calc(100% / 7);
-    width: calc(100% / 7);
+    height: calc(100% / 10);
+    width: calc(100% / 10);
 }
 
 .cell.medium{
@@ -42,11 +42,15 @@ header{
 }
 
 .cell.hard{
-    height: calc(100% / 10);
-    width: calc(100% / 10);
+    height: calc(100% / 7);
+    width: calc(100% / 7);
 }
 
 
 .clicked{
     background-color: cyan;
+}
+
+.bomb{
+    background-color: red;
 }
