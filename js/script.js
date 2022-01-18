@@ -50,8 +50,10 @@ const playGame = () => {
     switch (difficultyElement) {
         case 'normal':
             totalCells = 81;
+            break;
         case 'hard':
             totalCells = 49;
+            break;
         default:
             //Easy
             totalCells = 100;
@@ -71,13 +73,44 @@ const playGame = () => {
         return bombs;
     }
 
+    // generazione cella
+    function generateCell(number, cellsRow) {
+        const cell = document.createElement("div");
+        cell.className = 'cell';
+        cell.innerText = number;
+        const cellSize = `calc(100% / ${cellsRow})`;
+        cell.style.width = cellSize;
+        cell.style.height = cellsize;
+
+        return cell;
+    }
+
+
+    //GRIGLIA
+
+    function generateGrid(cellsNumber, cellsRow, bombs) {
+        for (let i = 1; 1 < cellsNumber; i++) {
+            const cell = generateCell(i, cellsRow);
+            cell.addEventListener('click', (e) => onCellClick(e.target, bombs, i));
+
+            gridElement.appendChild(cell);
+        }
+    }
+
+
+
+
+
+
+
+
+
 
 
     // ! creazione celle
 
     function createCells() {
-        const cell = document.createElement("div");
-        cell.className = 'cell';
+
 
         return cell
     }
@@ -156,19 +189,19 @@ const buttonElement = document.getElementById("button");
 
 buttonElement.addEventListener('click', playGame)
 
-buttonElement.addEventListener('click', () => {
-    buttonElement.innerText = "Ricomincia"
-    gridElement.innerHTML = '';
-    const selectDifficulty = difficultyElement.value;
+// buttonElement.addEventListener('click', () => {
+//     buttonElement.innerText = "Ricomincia"
+//     gridElement.innerHTML = '';
+//     const selectDifficulty = difficultyElement.value;
 
 
-    if (selectDifficulty == "easy") {
-        easy()
-    } else if (selectDifficulty == "medium") {
-        medium()
-    } else {
-        hard()
-    }
+//     if (selectDifficulty == "easy") {
+//         easy()
+//     } else if (selectDifficulty == "medium") {
+//         medium()
+//     } else {
+//         hard()
+//     }
 
-})
+// })
 
