@@ -14,8 +14,8 @@ header{
 }
 
 #grid{
-    height: 700px;
-    width: 700px;
+    height: 600px;
+    width: 600px;
     border: 2px solid rgb(90, 34, 34);
     flex-wrap: wrap;
     color: white;
@@ -29,21 +29,6 @@ header{
     justify-content: center;
     align-items: center;
     font-size: 30px;
-}
-
-.cell.easy{
-    height: calc(100% / 10);
-    width: calc(100% / 10);
-}
-
-.cell.medium{
-    height: calc(100% / 9);
-    width: calc(100% / 9);
-}
-
-.cell.hard{
-    height: calc(100% / 7);
-    width: calc(100% / 7);
 }
 
 

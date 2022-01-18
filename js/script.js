@@ -74,6 +74,7 @@ const playGame = () => {
     }
 
     // generazione cella
+
     function generateCell(number, cellsRow) {
         const cell = document.createElement("div");
         cell.className = 'cell';
@@ -97,28 +98,36 @@ const playGame = () => {
         }
     }
 
+    function gameOver(bombs, points, hasLost) {
+        showBombs(bombs);
+
+        const messageElement = document.createElement('h3');
+        messageElement.className = 'message';
 
 
+        const messageText = hasLost ? `Peccato, hai perso! Punteggio: ${points}` : 'Hai vinto! Gioca ancora..'
+        messageElement.innerText = messageText;
 
-
-
-
-
-
-
-
-    // ! creazione celle
-
-    function createCells() {
-
-
-        return cell
+        gridElement.appendChild(messageElement)
     }
 
-    //! al click della cella
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // al click della cella
 
     function onCellClick(clickedCell, bombs, number) {
-        clickedCell.removeEventListener('click', onCellClick);
+        clickedCell.removeEventListener('click', onCellClick(e.target));
 
         if (bombs.includes(number)) {
             //!gameover
@@ -129,52 +138,6 @@ const playGame = () => {
 
         if (attemps === MAX_ATTEMPS) {
             //!gameover win
-        }
-    }
-
-    // ! funzioni per la selezione della difficolta di gioco
-
-    function easy() {
-        const bombs = generateBombs(TOTAL_BOMBS, difficulty(10, 10));
-        for (let i = 0; i < difficulty(10, 10); i++) {
-            const cell = createCells();
-            gridElement.appendChild(cell);
-            cell.classList.add('easy');
-            cell.innerHTML = `<p>${i + 1}</p>`;
-            cell.addEventListener("click", (e) => {
-                cell.removeEventListener('click', (e.target))
-                if (bombs.includes(i)) {
-                    cell.classList.add('bomb')
-                } else {
-                    cell.classList.add('clicked')
-                    attemps++;
-                }
-            })
-        }
-        console.table(bombs)
-    }
-
-    function medium() {
-        for (let i = 0; i < difficulty(9, 9); i++) {
-            const cell = createCells();
-            gridElement.appendChild(cell);
-            cell.classList.add('medium');
-            cell.innerHTML = `<p>${i + 1}</p>`;
-            cell.addEventListener("click", () => {
-                cell.classList.toggle('clicked')
-            })
-        }
-    }
-
-    function hard() {
-        for (let i = 0; i < difficulty(7, 7); i++) {
-            const cell = createCells();
-            gridElement.appendChild(cell);
-            cell.classList.add('hard');
-            cell.innerHTML = `<p>${i + 1}</p>`;
-            cell.addEventListener("click", () => {
-                cell.classList.toggle('clicked')
-            })
         }
     }
 
