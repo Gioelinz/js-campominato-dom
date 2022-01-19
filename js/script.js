@@ -48,7 +48,7 @@ function playGame() {
     let cellsRow;
 
     switch (difficultyElement) {
-        case 'normal':
+        case 'medium':
             totalCells = 81;
             break;
         case 'hard':
