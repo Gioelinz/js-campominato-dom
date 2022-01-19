@@ -105,15 +105,26 @@ function playGame() {
         gridElement.appendChild(messageElement)
     }
 
+    //reset event listener a fine game
+
+    const disableCell = (cell) => {
+        const cloneCell = cell.cloneNode();
+        cloneCell.innerText = cell.innerText;
+        cloneCell.classList.add('disabled')
+        cell.parentNode.replaceChild(cloneCell, cell)
+
+        return cloneCell;
+    }
+
     // al click della cella
 
     const onCellClick = (clickedCell, bombs, number) => {
-        clickedCell.removeEventListener('click', onCellClick);
+        const disabledCell = disableCell(clickedCell);
 
         if (bombs.includes(number)) {
             gameOver(bombs, attemps, true);
         } else {
-            clickedCell.classList.add('clicked');
+            disabledCell.classList.add('clicked');
             attemps++;
         }
 
@@ -129,9 +140,9 @@ function playGame() {
         const cells = document.querySelectorAll('.cell');
         for (let i = 0; i < cells.length; i++) {
             const cell = cells[i];
+            const disabledCell = disableCell(cell)
             const cellNumber = parseInt(cell.innerText);
-            cell.removeEventListener('click', onCellClick);
-            if (bombs.includes(cellNumber)) cell.classList.add('bomb');
+            if (bombs.includes(cellNumber)) disabledCell.classList.add('bomb');
         }
     }
 
